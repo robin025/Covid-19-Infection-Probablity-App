@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="">  <!-- to get rid from favicon.ico -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bungee&family=Fredoka+One&family=Staatliches&family=Ubuntu+Condensed&display=swap"
+        rel="stylesheet">
+        <link rel="shortcut icon" href="">
+    <style>
+        h3{
+            font-family: 'Bungee', cursive;
+            background-color: rgb(182, 211, 255);
+            text-align: center;
+            padding: 40px 0px;
+            margin: 0 -15px;
+
+        }
+        
+        h1 {
+            font-family: 'Bungee', cursive;
+            background-color: rgb(206, 203, 252);
+            text-align: center;
+            padding: 40px 0px;
+        }
+
+       
+
+        .numberfig {
+            font-family: 'Fredoka One', cursive;
+            font-size: 50px;
+        }
+
+        small {
+            font-family: 'Fredoka One', cursive;
+            font-weight: bold;
+        }
+
+        #counameid {
+            font-size: 35px;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px 0px;
+            font-family: 'Fredoka One', cursive;
+        }
+
+        #maincouid{
+            background-color: rgb(172, 240, 252);
+            margin: 0px -30px;
+            padding:25px 0px;
+        }
+
+        .categoryname{
+            font-family: 'Staatliches', cursive;
+        }
+
+        .trackerbut:hover{
+            background-color: black;
+            color: white;
+
+            text-decoration: none;
+        }
+
+        .trackerbut{
+            
+            font-family:cursive ;
+            text-decoration: none;
+            background-color: white;
+            color: black;
+        }
+
+        .country__flag>img{
+            transition: all .3s ease-in;
+        }
+        .country__flag>img:hover{
+            transform:scale(1.1);
+            border-radius:99px;
+        }
+    </style>
+    <title>COVID</title>
+</head>
+
+<body>
+    <div>
+        <h1>COVID-19 Tracker</h1>
+        <p style="text-align: center;">Latest : Novel CoronaVirus - 19 Statistics </p>
+        <div class="text-center py-3">
+            <a class=" trackerbut" href="/tracker">COVID Probablity Tracker</a>
+            
+            <input type="text" id="inputsearch" class="inputseach1  " placeholder="Enter City Name">
+        </div>
+        <div id="mainbox" class="container my-5">
+            <div class="column">
+
+                <div class="text-center"><h3 id="counameid" class="my-3" >Country</h3>
+                </div>
+                <div class="text-center country__flag" style="margin-bottom: 35px;">
+                    <img id="country_img"  class="my-3" src=""  />
+                </div>
+                <div class="row" style="margin: -15px;">
+                    <div style="background-color: rgb(172, 240, 252);" class="col-md-6 text-center py-4">
+                        <div>
+                            
+                            <div class = "categoryname"><small>Total Cases</small></div>
+                            <p class="numberfig" id="globalcase">--</p>
+                        </div>
+                        <div>
+                            
+                            <div class = "categoryname"><small>Total Deaths</small></div>
+                            <p class="numberfig" id="globaldeath">--</p>
+                        </div>
+                        <div>
+                            
+                            <div class = "categoryname"><small>Total Cases Recovered</small></div>
+                            <p class="numberfig" id="globalrecoved">--</p>
+                        </div>
+
+                    </div>
+                    <div style="background-color: rgb(111, 233, 255);" class="col-md-6 text-center py-4">
+                        <div>
+                            
+                            <div class = "categoryname"><small>New Cases</small></div>
+                            <p class="numberfig" id="globalnewcase">--</p>
+                            <p></p>
+                        </div>
+                        <div>
+                            
+                            <div class = "categoryname"><small>New Deaths</small></div>
+                            <p class="numberfig" id="globalnewdeath">--</p>
+                        </div>
+                        <div>
+                            
+                            <div class = "categoryname"><small>New Cases Recovered</small></div>
+                            <p class="numberfig" id="globalnewrecoverd">--</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+    </div>
+
+
+    <script>
+        const searchinputbox = document.getElementById('inputsearch');
+        searchinputbox.addEventListener('keypress', (event) => {
+            if (event.keyCode == 13) {
+                console.log(searchinputbox.value);
+                getcovidreport(searchinputbox.value);
+
+            }
+
+        });
+
+
+      
+        function getcovidreport() {
+            fetch(`https://disease.sh/v3/covid-19/countries/${searchinputbox.value}`)
+
+                .then(coviddata => {
+                    return coviddata.json();
+                }).then(showreport);
+        }
+
+        function getid(city, coviddata) {
+            for (var i = 0; i < coviddata.Countries.length; i++) {
+                if (coviddata.Countries[i].Country == city) {
+                    console.log(i)
+                    return i
+                }
+            }
+
+        }
+        function showreport(coviddata) {
+
+            let glocase = document.getElementById('globalcase');
+            glocase.innerText = `${coviddata.cases}`
+            let glodet = document.getElementById('globaldeath');
+            glodet.innerText = `${coviddata.deaths}`
+            let glorec = document.getElementById('globalrecoved');
+            glorec.innerText = `${coviddata.recovered}`
+
+            let gloncase = document.getElementById('globalnewcase');
+            gloncase.innerText = `${coviddata.todayCases}`
+            let glondet = document.getElementById('globalnewdeath');
+            glondet.innerText = `${coviddata.todayDeaths}`
+            let glonrec = document.getElementById('globalnewrecoverd');
+            glonrec.innerText = `${coviddata.todayRecovered}`
+
+            let couname = document.getElementById('counameid');
+            couname.innerText = `${coviddata.country} , ${coviddata.countryInfo.iso3}`
+
+            let cout_flag = document.getElementById('country_img');
+            cout_flag.setAttribute("src", `${coviddata.countryInfo.flag}`);
+            cout_flag.setAttribute("style", `${"border: 2px solid black;"}`);
+            
+
+        }
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+h3{
+    font-family: 'Bungee', cursive;
+    background-color: rgb(182, 211, 255);
+    text-align: center;
+    padding: 40px 0px;
+    margin: 0 -15px;
+
+}
+
+h1 {
+    font-family: 'Bungee', cursive;
+    background-color: rgb(135, 224, 183);
+    text-align: center;
+    padding: 40px 0px;
+}
+
+/* #mainbox {
+    border: 2px solid rgb(0, 0, 0);
+} */
+
+.numberfig {
+    font-family: 'Fredoka One', cursive;
+    font-size: 50px;
+}
+
+small {
+    font-family: 'Fredoka One', cursive;
+    font-weight: bold;
+}
+
+#counameid {
+    font-size: 35px;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px 0px;
+    font-family: 'Fredoka One', cursive;
+}
+
+#maincouid{
+    background-color: rgb(172, 240, 252);
+    margin: 0px -30px;
+    padding:25px 0px;
+}
+
+.categoryname{
+    font-family: 'Staatliches', cursive;
+}
